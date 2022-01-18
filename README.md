@@ -19,3 +19,8 @@ You can visit [wikipedia page](https://en.wikipedia.org/wiki/Super_Mario_Bros.) 
 
 ### Pause Screen
 ![pause screen](https://raw.githubusercontent.com/ahmetcandiroglu/1G.Super-Mario-Bros/master/docs/Screenshots/Pause%20screen.png)
+
+# Intentional Bugs
+
+This version contains the following intentional Bugs:
+* Bug1
