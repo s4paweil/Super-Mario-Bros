@@ -224,7 +224,7 @@ public class MapManager {
                 }
 
                 if (enemyBounds.intersects(brickBounds)) {
-                    enemy.setVelX(-enemy.getVelX());
+                    enemy.setVelX(enemy.getVelX());
                 }
 
                 if (enemyBottomBounds.intersects(brickTopBounds)){

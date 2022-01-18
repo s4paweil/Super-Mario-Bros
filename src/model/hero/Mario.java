@@ -47,7 +47,7 @@ public class Mario extends GameObject{
     }
 
     public void jump(GameEngine engine) {
-        if(!isJumping() && !isFalling()){
+        if(true){
             setJumping(true);
             setVelY(10);
             engine.playJump();

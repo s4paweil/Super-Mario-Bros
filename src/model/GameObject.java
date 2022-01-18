@@ -29,7 +29,7 @@ public abstract class GameObject {
         setVelY(0);
         setGravityAcc(0.38);
         jumping = false;
-        falling = true;
+        falling = false;
     }
 
     public void draw(Graphics g) {
@@ -57,6 +57,7 @@ public abstract class GameObject {
         else if(jumping){
             velY = velY - gravityAcc;
             y = y - velY;
+            falling = false;        // added for a bug to work
         }
 
         if(falling){
