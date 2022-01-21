@@ -57,7 +57,6 @@ public abstract class GameObject {
         else if(jumping){
             velY = velY - gravityAcc;
             y = y - velY;
-            falling = false;        // added for a bug to work
         }
 
         if(falling){

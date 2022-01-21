@@ -28,8 +28,12 @@ This version contains the following intentional Bugs:
 Enemies do not turn at collision with objects (easy to see on Map 2 - the Gumba at the start).
 
 ## Bug 2
-Mario has evolved, he can jump infinitly often in the air now... although he shouldn't...
+Mario has evolved, he can jump infinitly often in the air now, atleast while on the upwards movement. He still can't jump while falling.
+But he shouldn't be able to do multiple jumps at all.
 
+## Bug 3
+Whenever Mario gets a Coin from the ?-Blocks, he does get the Points for it BUT the Coin counter in the upper right corner does not increase.
+Mario really needs the counter to work to get a 1UP! when hitting 100 Coins!
 
 
 
@@ -38,7 +42,7 @@ Mario has evolved, he can jump infinitly often in the air now... although he sho
 
 # Solution to Bugs
 
-## Bug 1
+## Bug 1 - Enemies run through Objects
 This Bug is pretty straightforward. Can be found/solved on a very short path, if the structure of the program ist known, or a slightly longer path.
 
 Potential paths to Problem:
@@ -58,7 +62,7 @@ should be corrected to
         enemy.setVelX(-enemy.getVelX());
     }
 
-## Bug 2
+## Bug 2 - Mario can jump infinitly often
 To find the second bug is pretty easy aswell, to solve it is a bit harder.
 The bug is located in Mario.jump(), but it is probably necessary to look at GameObject.updateLocation() aswell.
 * GameEngine.receiveInput() -> Mario.jump()
@@ -68,7 +72,7 @@ The bug is located in Mario.jump(), but it is probably necessary to look at Game
 Inside Mario.jump():
 
     public void jump(GameEngine engine) {
-        if(true){
+        if(!isFalling()){
             setJumping(true);
             setVelY(10);
             engine.playJump();
@@ -85,10 +89,25 @@ should be changed to:
         }
     }
 
-P.S. Had to add one line to GameObject.updateLocation() for the bug to work correct
 
-    else if(jumping){
-        velY = velY - gravityAcc;
-        y = y - velY;
-        falling = false;        // added for a bug to work
+## Bug 3 - Coin counter
+Path to the Bug - not that easy to find, unless you directly navigate to the Coin class.
+The Bug is located in Coin.onTouch().
+* GameEngine.run() -> GameEngine.gameLoop() -> GameEngine.checkCollisions() -> MapManager.checkCollisions() -> MapManager.checkPrizeContact() -> Prize.onTouch() - interface is implemented in Coin - Coin.onTouch()
+Additionally the Mario class has to be checked for the Method
+* Mario.acquireCoin()
+
+### Bug 3 fixing solution
+Inside Coin.onTouch():
+
+    public void onTouch(Mario mario, GameEngine engine) {
+        if(!acquired){
+            acquired = true;
+            mario.acquirePoints(point);
+            engine.playCoin();
+        }
     }
+
+the following line should be addded:
+
+    mario.acquireCoin();

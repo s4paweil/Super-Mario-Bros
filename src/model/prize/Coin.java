@@ -17,7 +17,7 @@ public class Coin extends GameObject implements Prize{
     public Coin(double x, double y, BufferedImage style, int point){
         super(x, y, style);
         this.point = point;
-        revealed = false;
+        revealed = true;
         setDimension(30, 42);
         revealBoundary = (int)getY() - getDimension().height;
     }
@@ -37,7 +37,6 @@ public class Coin extends GameObject implements Prize{
         if(!acquired){
             acquired = true;
             mario.acquirePoints(point);
-            mario.acquireCoin();
             engine.playCoin();
         }
     }
